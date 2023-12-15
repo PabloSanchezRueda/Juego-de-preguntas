@@ -1,3 +1,8 @@
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
+
 public class App {
     public static void main(String[] args) throws Exception {
         String[] preguntas = {
@@ -25,6 +30,44 @@ public class App {
             "a",
             "a"
         };
+        int puntuacion = 0;
 
+
+        Random rm = new Random();
+        Scanner sc = new Scanner(System.in);
+
+
+        // Conjunto para almacenar índices de preguntas ya utilizados
+        Set<Integer> preguntasUtilizadas = new HashSet<>();
+
+
+        while (preguntasUtilizadas.size() < preguntas.length) {
+            int indiceAleatorio;
+            do {
+                indiceAleatorio = rm.nextInt(preguntas.length);
+            } while (preguntasUtilizadas.contains(indiceAleatorio));
+
+
+            preguntasUtilizadas.add(indiceAleatorio);
+
+
+            System.out.println(preguntas[indiceAleatorio]);
+            System.out.print("Respuesta: ");
+            String respuestaUsuario = sc.nextLine().toLowerCase();
+
+
+            if (respuestaUsuario.equals(respuestas[indiceAleatorio])) {
+                System.out.println("¡Respuesta correcta!");
+                puntuacion++;
+            } else {
+                System.out.println("Respuesta incorrecta");
+            }
+
+
+            System.out.println();
+        }
+
+
+        System.out.println("El juego ha terminado. Puntuacion final: " + puntuacion);
     }
 }
